@@ -28,7 +28,7 @@ public class approvalCard {
                 .shouldHave(text("Создать документ \"Карточка согласования\""));
         home.typeDocBtn().click();
 
-        sleep(2000);
+        sleep(2000); //1
     }
 }
 
