@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Condition.*;
 
 public class approvalCard {
     methods home = new methods();
-
+    //users user = new users();
     @Test
     public void testPushElement () {
         // Открыть страницу и проверить главную стринцу
