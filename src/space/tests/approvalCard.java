@@ -5,28 +5,23 @@ import java.util.List;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
 
-public class approvalCard {
+public class approvalCard extends Users {
     methods home = new methods();
-    //users user = new users();
+    authPage auth = new authPage();
+
     @Test
     public void testPushElement () {
         // Открыть страницу и проверить главную стринцу
-        home
-                .open()
-                .assertUrl("http://172.30.48.40:8080/share/page");
-
-        home.inputLogin().val("Fortest1");
-        home.inputPass().val("Sh273Ht1");
-        home.auth().click();
-
-        // Проверить заголовок страницы
+        open("http://172.30.48.40:8080/share/page/arm?code=SED");
+        auth.goAuth(executer);
         home.assertTitle("АРМ");
-
         home.creatBtn().click();
         home.typeCreateMenu().get(0).click();
         home.typeTitle()
                 .shouldHave(text("Создать документ \"Карточка согласования\""));
         home.typeDocBtn().click();
+        auth.outAuth();
+        auth.goAuth(approval);
 
         sleep(2000); //1
     }
