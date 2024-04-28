@@ -14,6 +14,7 @@ public class approvalCard extends data {
         open(homeSite);
         auth.goAuth(executer);
         webElem.createBtn().click();
+        webElem.typeDoc("Карточка согласования").click();
 
         sleep(2000); //1
     }

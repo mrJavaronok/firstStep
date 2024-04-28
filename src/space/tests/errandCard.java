@@ -16,6 +16,7 @@ public class errandCard extends data {
         open(homeSite);
         auth.goAuth(executer);
         webElem.createBtn().click();
+        webElem.typeDoc("Поручение").click();
 
         sleep(2000);
     }

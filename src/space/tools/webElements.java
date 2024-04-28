@@ -10,8 +10,8 @@ public class webElements {
         return $x("//button[text()='Создать']");
     }
 
-    public ElementsCollection typeDoc (String type) {
-        return $$("li[id*=yui-gen]");
+    public SelenideElement typeDoc (String type) {
+        return $x("//a[text()='"+ type +"']");
     }
 
 }
