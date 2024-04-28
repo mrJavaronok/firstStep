@@ -5,16 +5,18 @@ import org.testng.annotations.Test;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class errandCard extends Users{
+public class errandCard extends data {
 
     authPage auth = new authPage();
+    webElements webElem = new webElements();
+    asserts methAssert = new asserts();
 
     @Test
     public void main() {
-        open("http://172.30.48.40:8080/share/page/arm?code=SED");
+        open(homeSite);
         auth.goAuth(executer);
-        auth.outAuth();
-        auth.goAuth(approval);
+        webElem.createBtn().click();
+
         sleep(2000);
     }
 

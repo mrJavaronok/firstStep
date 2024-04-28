@@ -6,7 +6,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class authPage {
 
-    Users user = new Users();
+    data user = new data();
     public void goAuth(String loginIs) {
 
         $(By.name("username")).setValue(loginIs);
