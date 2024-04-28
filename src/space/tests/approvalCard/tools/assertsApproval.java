@@ -1,0 +1,2 @@
+public class assertsApproval {
+}
