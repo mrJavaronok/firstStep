@@ -2,20 +2,20 @@ import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class approvalCard extends data {
+public class errandCard1 extends data {
 
     authPage auth = new authPage();
     webElements webElem = new webElements();
     asserts methAssert = new asserts();
 
     @Test
-    public void testPushElement () {
-        // Открыть страницу и проверить главную стринцу
+    public void main() {
         open(homeSite);
         auth.goAuth(executer);
         webElem.createBtn().click();
-        webElem.typeDoc("Карточка согласования").click();
+        webElem.typeDoc("Поручение").click();
 
-        sleep(2000); //1
+        sleep(2000);
     }
+
 }
