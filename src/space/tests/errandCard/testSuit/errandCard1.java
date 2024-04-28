@@ -13,8 +13,6 @@ public class errandCard1 extends data {
     public void test1 () {
         open(homeSite);
         auth.goAuth(executer);
-        getAssert.highlightNode(); // Узел выбран в разеделе Моя работа?
-        //webElem.highlightMyCreateDocs().shouldBe(visible);
         webElem.createBtn().click();
         webElem.typeDoc("Поручение").click();
         sleep(2000);
