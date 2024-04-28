@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class errandCard extends Users {
+public class errandCard extends Users{
 
     authPage auth = new authPage();
 
