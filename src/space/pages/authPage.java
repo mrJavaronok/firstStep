@@ -17,7 +17,7 @@ public class authPage {
 
     public void outAuth() {
         refresh();
-        $("span[id*=USER_MENU]").click();
+        $x("//span[contains(@id,'USER_MENU')]").click();
         $x("//td[text()='Выход']").click();
         getAssert.checkHighlightNode("Выданные мной поручения");
     }
