@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.*;
 
+
 public class authPage {
     Users user = new Users();
     public void goAuth(String loginIs) {

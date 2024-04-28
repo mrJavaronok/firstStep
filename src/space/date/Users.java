@@ -1,7 +1,10 @@
 public class Users {
 
-    String executer = "Fortest1";
-    String approval = "Fortest2";
-    String password = "Sh273Ht1";
+    // logins
+    String executer = "Fortest1",
+    approval = "Fortest2",
+
+    // password
+    password = "Sh273Ht1";
 
 }

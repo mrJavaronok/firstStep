@@ -12,7 +12,7 @@ public class approvalCard extends Users {
     @Test
     public void testPushElement () {
         // Открыть страницу и проверить главную стринцу
-        open("http://172.30.48.40:8080/share/page/arm?code=SED");
+        open();
         auth.goAuth(executer);
         home.assertTitle("АРМ");
         home.creatBtn().click();
