@@ -14,4 +14,7 @@ public class webElements {
         return $x("//a[text()='"+ type +"']");
     }
 
+    public SelenideElement highlightMyCreateDocs () {
+        return $x("//table[contains(@class, 'highlight1')]//child::span[text()='Выданные мной поручения']");
+    }
 }
