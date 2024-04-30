@@ -4,13 +4,13 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.*;
 import static org.testng.Assert.assertEquals;
 
-public class webElements {
+public class WebElements {
 
     public SelenideElement createBtn () {
         return $x("//button[text()='Создать']");
     }
 
-    public SelenideElement typeDoc (String type) {
+    public SelenideElement typeDocCreate (String type) {
         return $x("//a[text()='"+ type +"']");
     }
 

@@ -2,11 +2,11 @@ import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class approvalCard1 extends data {
+public class ApprovalCard1 extends Data {
 
-    authPage auth = new authPage();
-    webElements webElem = new webElements();
-    asserts getAssert = new asserts();
+    AuthPage auth = new AuthPage();
+    WebElements webElem = new WebElements();
+    Asserts getAssert = new Asserts();
 
     @Test
     public void test1 () {
@@ -14,7 +14,7 @@ public class approvalCard1 extends data {
         open(homeSite);
         auth.goAuth(executer);
         webElem.createBtn().click();
-        webElem.typeDoc("Карточка согласования").click();
+        webElem.typeDocCreate("Карточка согласования").click();
 
         sleep(2000); //1
     }

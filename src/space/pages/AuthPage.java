@@ -1,13 +1,11 @@
-import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.By;
-import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class authPage {
+public class AuthPage {
 
-    data user = new data();
-    asserts getAssert = new asserts();
+    Data user = new Data();
+    Asserts getAssert = new Asserts();
     public void goAuth(String loginIs) {
         $(By.name("username")).setValue(loginIs);
         $(By.name("password")).setValue(user.password);
