@@ -1,29 +1,31 @@
+import com.codeborne.selenide.Configuration;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.Objects;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class ErrandCard1 extends Data  {
+public class ErrandCard1 {
 
-    AuthPage auth = new AuthPage();
-    WebElements webElem = new WebElements();
-    Asserts getAssert = new Asserts();
+    Users Fortest1 = new Users("Фортест1", "Fortest1", "Sh273Ht1");
+    Users Fortest2 = new Users("Фортест2", "Fortest2", "Sh273Ht1");
+    Users Fortest3 = new Users("Фортест3", "Fortest3", "Sh273Ht1");
+    @BeforeMethod
+    public void configureTests() {
+        Configuration.timeout = 120000; // неявное ожидание в 5 секунд
+        // ... Other browser configs
+    }
 
     @Test
     public void test1 () {
-
-        open(homeSite);
-        auth.goAuth(executer);
-        webElem.createBtn().click();
-        webElem.typeDocCreate("Поручение").click();
-        $x("//button[contains(@id,'document-category-assoc-cntrl-tree')]").click();
-        $x("//span[text()='СКХ']//ancestor::tr//child::span[contains(@class, 'addIcon')]").click();
-        $x("//button[contains(@id, '-category-assoc-cntrl-ok')]").click();
-        $x("//button[contains(@id, 'executor-assoc-btn-pick-')]").click();
-        $x("//input[contains(@id, 'executor-assoc-picker-employee-search-text')]").val("Фортест2");
-        $x("//button[contains(@id, 'executor-assoc-picker-employee-search-button')]").click();
-        $x("//a[contains(., 'Фортест2')]//ancestor::tr//child::i[contains(@class, 'icon-plus')]").click();
-        $x("//button[contains(@id, 'executor-assoc-picker-ok-')]").click();
-        $x("//button[text()='Создать']").click();
+        open(MainPage.homeWeb());
+        AuthPage.goAuth(Fortest1.getLogin(), Fortest1.getPassword());
+        AssertMainPage.authCompleted("Выданные мной поручения");
+        WebElements.createTypeDoc("Поручение");
+        WebElements.setCategoryDoc("СКХ");
+        WebElements.setExecutor(Fortest2.getName());
+        //$x("//button[text()='Создать']").click();
 
         sleep(2000);
 

@@ -11,9 +11,4 @@ public class Asserts {
         assertEquals(title, expectedTitle);
     }
 
-    public void checkHighlightNode (String expectedHighlightNode) {
-        assertEquals($x("//table[contains(@class, 'highlight1')]//child::span[text()='Выданные мной поручения']"),
-                $x("//table[contains(@class, 'highlight1')]//child::span[text()='"+ expectedHighlightNode +"']"));
-    }
-
 }
