@@ -31,7 +31,7 @@ public class WebElements {
         return $(By.name("prop_lecm-document_title")).setValue(name);
     }
 
-    public static  void setKindDoc() {
+    public static void setKindDoc() {
         $x("//button[contains(@id, 'document-kind-assoc-cntrl-tree-picker-button-')]").click();
     }
 

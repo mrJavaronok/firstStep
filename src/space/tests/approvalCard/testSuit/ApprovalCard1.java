@@ -11,7 +11,7 @@ public class ApprovalCard1 {
 
     @BeforeMethod
     public void configureTests() {
-        Configuration.timeout = 120000; // неявное ожидание в 5 секунд
+        //Configuration.timeout = 120000; // неявное ожидание в 5 секунд
         // ... Other browser configs
     }
 
@@ -19,7 +19,7 @@ public class ApprovalCard1 {
     public void test1 () {
         // Открыть страницу и проверить главную стринцу
         open(MainPage.homeWeb());
-        AuthPage.goAuth(Users.Fortest1.getLogin(), Users.Fortest1.getPassword());
+        AuthPage.goAuth(Users.getFortest1());
         AssertMainPage.authCompleted("Выданные мной поручения");
         WebElements.createTypeDoc("Карточка согласования");
         WebElements.setCategoryDoc("ДВП");

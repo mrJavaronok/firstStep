@@ -4,10 +4,11 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class AuthPage {
 
-    Asserts getAssert = new Asserts();
-    public static void goAuth(String loginIs, String passwordIs) {
-        $(By.name("username")).setValue(loginIs);
-        $(By.name("password")).setValue(passwordIs);
+    public static void goAuth(Employees user) {
+        $(By.name("username")).setValue(user.getLogin());
+        $(By.name("password")).setValue(user.getPassword());
+        /*$(By.name("username")).setValue(loginIs);
+        $(By.name("password")).setValue(passwordIs);*/
         $x("//button[text()='Войти']").click();
     }
 
