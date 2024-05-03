@@ -27,4 +27,12 @@ public class WebElements {
         $x("//button[contains(@id, 'executor-assoc-picker-ok-')]").click();
     }
 
+    public static SelenideElement setTitle (String name) {
+        return $(By.name("prop_lecm-document_title")).setValue(name);
+    }
+
+    public static  void setKindDoc() {
+        $x("//button[contains(@id, 'document-kind-assoc-cntrl-tree-picker-button-')]").click();
+    }
+
 }

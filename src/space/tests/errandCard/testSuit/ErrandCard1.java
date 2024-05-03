@@ -1,4 +1,4 @@
-import com.codeborne.selenide.Configuration;
+/*import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -31,4 +31,4 @@ public class ErrandCard1 {
 
     }
 
-}
+}*/

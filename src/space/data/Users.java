@@ -1,9 +1,6 @@
-import java.util.Objects;
-
 public class Users {
 
-
-    private String name;
+    private static String name;
     private String login;
     private String password;
 
@@ -13,7 +10,7 @@ public class Users {
         this.password = password;
     }
 
-    public String getName() {
+    public static String getName() {
         return name;
     }
 
@@ -25,4 +22,7 @@ public class Users {
         return password;
     }
 
+    public static Users Fortest1 = new Users("Фортест1", "Fortest1", "Sh273Ht1");
+    public static Users Fortest2 = new Users("Фортест2", "Fortest2", "Sh273Ht1");
+    public static Users Fortest3 = new Users("Фортест3", "Fortest3", "Sh273Ht1");
 }
