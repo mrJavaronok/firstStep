@@ -1,8 +1,12 @@
 import com.codeborne.selenide.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 
 import java.util.Objects;
+import java.util.concurrent.locks.Condition;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static org.testng.Assert.assertEquals;
 
@@ -21,8 +25,7 @@ public class WebElements {
 
     public static void setExecutor (String user) {
         $x("//button[contains(@id, 'executor-assoc-btn-pick-')]").click();
-        $x("//input[contains(@id, 'executor-assoc-picker-employee-search-text')]").val(user);
-        $x("//button[contains(@id, 'executor-assoc-picker-employee-search-button')]").click();
+        $x("//input[contains(@id, 'executor-assoc-picker-employee-search-text')]").val(user).press(Keys.ENTER);
         $x("//a[contains(., '"+ user +"')]//ancestor::tr//child::i[contains(@class, 'icon-plus')]").click();
         $x("//button[contains(@id, 'executor-assoc-picker-ok-')]").click();
     }
@@ -31,8 +34,15 @@ public class WebElements {
         return $(By.name("prop_lecm-document_title")).setValue(name);
     }
 
-    public static void setKindDoc() {
+    public static void setKindDoc(String catalog, String kindName) {
         $x("//button[contains(@id, 'document-kind-assoc-cntrl-tree-picker-button-')]").click();
+        $x("//span[text()='"+ catalog +"']").click();
+        $x("//span[contains(@class, 'addIcon')]").shouldBe(visible);
+        $x("//input[contains(@id, 'document-kind-assoc-cntrl-picker-searchText')]").val(kindName).press(Keys.ENTER);
+        $x("//span[text()='"+ kindName +"']//ancestor::tr//child::span[contains(@class, 'addIcon')]").click();
+        $x("//button[contains(@id, 'document-kind-assoc-cntrl-ok-button')]").click();
+
+
     }
 
 }

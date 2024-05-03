@@ -11,7 +11,7 @@ public class ApprovalCard1 {
 
     @BeforeMethod
     public void configureTests() {
-        //Configuration.timeout = 120000; // неявное ожидание в 5 секунд
+        Configuration.timeout = 10000; // неявное ожидание в 5 секунд
         // ... Other browser configs
     }
 
@@ -24,7 +24,7 @@ public class ApprovalCard1 {
         WebElements.createTypeDoc("Карточка согласования");
         WebElements.setCategoryDoc("ДВП");
         WebElements.setTitle("Тестовый документ Карточка согласования. Удалить");
-        WebElements.setKindDoc();
+        WebElements.setKindDoc("Прочие", "План");
 
         sleep(2000); //1
     }
