@@ -1,3 +1,4 @@
+package pages.mainPage;
 public class MainPage {
 
     public static String homeWeb () {

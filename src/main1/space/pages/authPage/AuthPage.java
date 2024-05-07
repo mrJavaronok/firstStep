@@ -1,14 +1,17 @@
+package pages.authPage;
+
+import data.Employees;
+import data.Users;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.*;
+
 
 public class AuthPage {
 
     public static void goAuth(Employees user) {
         $(By.name("username")).setValue(user.getLogin());
         $(By.name("password")).setValue(user.getPassword());
-        /*$(By.name("username")).setValue(loginIs);
-        $(By.name("password")).setValue(passwordIs);*/
         $x("//button[text()='Войти']").click();
     }
 

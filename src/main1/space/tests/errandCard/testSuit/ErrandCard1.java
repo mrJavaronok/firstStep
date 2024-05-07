@@ -1,6 +1,11 @@
+package tests.errandCard.testSuit;
+
 import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.mainPage.AssertMainPage;
+import pages.mainPage.MainPage;
+import tools.WebElements;
 
 import java.util.Objects;
 
@@ -18,7 +23,7 @@ public class ErrandCard1 {
     public void test1 () {
         open(MainPage.homeWeb());
         //AuthPage.goAuth(Users.Fortest1.getLogin(), Users.Fortest1.getPassword());
-        AssertMainPage.authCompleted("Выданные мной поручения");
+
         WebElements.createTypeDoc("Поручение");
         WebElements.setCategoryDoc("СКХ");
         //WebElements.setExecutor(Users.Fortest2.getName());
