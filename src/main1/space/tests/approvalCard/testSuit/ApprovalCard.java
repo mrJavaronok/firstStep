@@ -17,19 +17,17 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class ApprovalCard {
-
     @BeforeMethod
     public void configureTests() {
-        Configuration.timeout = 30000; 
-        
+        Configuration.timeout = 30000;
+        // ... Other browser configs
     }
     Users users = new Users();
     @Test
     public void main () {
-        
         open(AuthPage.homeWeb()); 
         AuthPage.goAuth(users.getFortest1()); 
-        AuthPage.authCompleted(); 
+        AuthPage.checkAuthCompleted();
         ArmPage.createTypeDoc("Карточка согласования"); 
         CreationFormDoc.formLoaded(); 
         CreationFormDoc.checkFormTitle("Карточка согласования"); 
@@ -40,19 +38,19 @@ public class ApprovalCard {
         Buttons.push("Сохранить проект"); 
         FormDoc.checkAttributes(new String[]{"Акт", "Открытый", "Проект"}); 
         String docNum = FormDoc.getDocNumber().getText(); 
-        BlackBar.pushKSED(); 
+        BlackBar.pushPanelButton("КСЭД");
         ArmPage.selectNode("Созданные мной документы"); 
         ArmPage.sheckDocExist(docNum); 
         ArmPage.pushDocFromTable(docNum); 
-        FormDoc.pushSetChange(); 
+        FormDoc.pushChangeAttributes();
         ChangeFormDoc.verifyFormDocChange(docNum); 
         CreationFormDoc.setCategoryDoc("ДВП"); 
         ChangeFormDoc.checkAttributes(new String[]{"ДВП"}); 
         Buttons.push("Сохранить"); 
         FormDoc.checkAttributes(new String[]{"Акт", "ДВП"}); 
-        RightPanel.pushButton("Удалить"); 
+        RightPanel.pushPanelButton("Удалить");
         FormDoc.checkMassageRemove(); 
-        BlackBar.pushKSED(); 
+        BlackBar.pushPanelButton("КСЭД");
         ArmPage.selectNode("Проекты"); 
         ArmPage.checkDocRemoved(docNum); 
 

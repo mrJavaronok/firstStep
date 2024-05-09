@@ -6,16 +6,13 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.testng.Assert.assertEquals;
 
 public class Buttons {
-
-
-
-
+    // Кнопка по названию, пока чаще всего встречается в формах подтвержения
     public static void push (String name) {
         $x("//button[text()='"+ name +"']").click();
     }
-
-    //Если страница создания или редактирования, то указываем "Заголовок"
-    //Дорабоать в месте когда ссылка ещё не успела перейти в новое состояние
+    /*Общая проверка форм дока, создания дока и изменения дока
+    Если страница создания или редактирования, то указываем "Заголовок"
+    Дорабоать в месте когда ссылка ещё не успела перейти в новое состояние*/
     public static void checkAttributes(String[] myArray) {
 
         String currentlyUrl = WebDriverRunner.url();

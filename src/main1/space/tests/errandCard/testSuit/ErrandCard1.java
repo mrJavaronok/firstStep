@@ -13,7 +13,6 @@ public class ErrandCard1 {
         //Configuration.timeout = 120000; // неявное ожидание в 5 секунд
         // ... Other browser configs
     }
-
     @Test
     public void test1 () {
         open(AuthPage.homeWeb());

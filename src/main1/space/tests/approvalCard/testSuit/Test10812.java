@@ -13,7 +13,6 @@ public class Test10812 {
         // ... Other browser configs
     }
     Users users = new Users();
-
     @Test
     public void main () {
 
