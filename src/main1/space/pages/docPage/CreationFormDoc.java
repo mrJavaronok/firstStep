@@ -1,41 +1,31 @@
-package tools;
-import com.codeborne.selenide.*;
+package pages.docPage;
+
+import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 
-import java.util.Objects;
-import java.util.concurrent.locks.Condition;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.*;
-import static org.testng.Assert.assertEquals;
+public class CreationFormDoc {
 
-public class WebElements {
-
-    public static void createTypeDoc (String type) {
-        $x("//button[text()='Создать']").click();
-        $x("//a[text()='"+ type +"']").click();
+    public static void formLoaded() {
+        $x("//legend[text()='Документы для информации']//ancestor::div[@class='uploader-block']").shouldBe(visible);
     }
-
+    public static void checkFormTitle(String name) {
+        $x("//h1[@id='HEADER_TITLE']//child::span[contains(text(), '"+name+"')]").shouldBe(visible);
+    }
     public static void setCategoryDoc (String type) {
         $x("//button[contains(@id,'document-category-assoc-cntrl-tree')]").click();
         $x("//div[contains(@id, 'document-category-assoc-cntrl-picker-selection')]//child::span[text()='Очистить']").click();
         $x("//span[text()='"+ type +"']//ancestor::tr//child::span[@class='addIcon']").click();
         $x("//button[contains(@id, '-category-assoc-cntrl-ok')]").click();
     }
-
-    public static void setExecutor (String user) {
-        $x("//button[contains(@id, 'executor-assoc-btn-pick-')]").click();
-        $x("//input[contains(@id, 'executor-assoc-picker-employee-search-text')]").val(user).press(Keys.ENTER);
-        $x("//a[contains(., '"+ user +"')]//ancestor::tr//child::i[@class='icon-plus']").click();
-        $x("//button[contains(@id, 'executor-assoc-picker-ok-')]").click();
-    }
-
     public static SelenideElement setTitle (String name) {
         return $(By.name("prop_lecm-document_title")).setValue(name);
     }
-
     public static void setKindDoc(String catalog, String kindName) {
         $x("//button[contains(@id, 'document-kind-assoc-cntrl-tree-picker-button-')]").click();
         $x("//span[text()='"+ catalog +"']").click();
@@ -44,8 +34,16 @@ public class WebElements {
         $x("//span[text()='"+ kindName +"']//ancestor::tr//child::span[@class='addIcon']").click();
         $x("//button[contains(@id, 'document-kind-assoc-cntrl-ok-button')]").click();
     }
-    public static SelenideElement pushButton (String name) {
-        return $x("//button[text()='"+ name +"']");
+    public static void setExecutor (String user) {
+        $x("//button[contains(@id, 'executor-assoc-btn-pick-')]").click();
+        $x("//input[contains(@id, 'executor-assoc-picker-employee-search-text')]").val(user).press(Keys.ENTER);
+        $x("//a[contains(., '"+ user +"')]//ancestor::tr//child::i[@class='icon-plus']").click();
+        $x("//button[contains(@id, 'executor-assoc-picker-ok-')]").click();
+    }
+    public static void checkAttributes(String[] myArray) {
+        for (var value : myArray) {
+            $x("//span[@class='mandatory-indicator']//ancestor::div//child::*[@title='"+value+"'][not(self::li)]").shouldBe(visible);
+        }
     }
 
 }
