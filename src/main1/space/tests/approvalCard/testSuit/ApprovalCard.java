@@ -20,42 +20,42 @@ public class ApprovalCard {
 
     @BeforeMethod
     public void configureTests() {
-        Configuration.timeout = 30000; // неявное ожидание в 5 секунд
-        // ... Other browser configs
+        Configuration.timeout = 30000; 
+        
     }
     Users users = new Users();
     @Test
     public void main () {
-        // Открыть страницу и проверить главную стринцу
-        open(AuthPage.homeWeb()); // Открыть страницу КСЭД
-        AuthPage.goAuth(users.getFortest1()); // Авторизоваться
-        AuthPage.authCompleted(); // Авторизация выполнена
-        ArmPage.createTypeDoc("Карточка согласования"); // Кнопка создать и тип документа
-        CreationFormDoc.formLoaded(); // Форма создания загружена
-        CreationFormDoc.checkFormTitle("Карточка согласования"); // Проверить что открылась форма создания с указанным типом
-        CreationFormDoc.setCategoryDoc("Открытый"); // Выбрать категорию докумета
-        CreationFormDoc.setTitle("Тестовый документ Карточка согласования. Удалить"); // Заполнить заголовок
-        CreationFormDoc.setKindDoc("Прочие", "Акт"); // Выбрать вид документа
-        CreationFormDoc.checkAttributes(new String[]{"Заголовок", "Акт", "Открытый"}); // Проверить заполненные атрибуты
-        Buttons.push("Сохранить проект"); // Отжать кнопку
-        FormDoc.checkAttributes(new String[]{"Акт", "Открытый", "Проект"}); // Проверить заполненные атрибуты
-        String docNum = FormDoc.getDocNumber().getText(); // Сохранить номер дока для манипуляций
-        BlackBar.pushKSED(); // Отжать кнопку КСЭД на черной панели сверху
-        ArmPage.selectNode("Созданные мной документы"); // Выбрать узел АРМ
-        ArmPage.sheckDocExist(docNum); // Проверить что созданный док присутствует в таблице
-        ArmPage.pushDocFromTable(docNum); // Нажать на дак в таблице
-        FormDoc.pushSetChange(); // Отжать кнопку Редактировать атрибуты
-        ChangeFormDoc.verifyFormDocChange(docNum); // Проверить что открылась форма редактирования нужного дока
-        CreationFormDoc.setCategoryDoc("ДВП"); // Выбрать категорию докумета
-        ChangeFormDoc.checkAttributes(new String[]{"ДВП"}); // Проверить заполненные атрибуты
-        Buttons.push("Сохранить"); // Отажать кнопку
-        FormDoc.checkAttributes(new String[]{"Акт", "ДВП"}); // Проверить заполненные атрибуты
-        RightPanel.pushButton("Удалить"); // На правой панелеи нажать Удалить, Подтвердить
-        FormDoc.checkMassageRemove(); // Страница с сообщение что док удален
-        BlackBar.pushKSED(); // Отжать кнопку КСЭД на черной панели сверху
-        ArmPage.selectNode("Проекты"); // Выбрать узел АРМ
-        ArmPage.checkDocRemoved(docNum); // Проверить что в таблице нет удаленного дока
+        
+        open(AuthPage.homeWeb()); 
+        AuthPage.goAuth(users.getFortest1()); 
+        AuthPage.authCompleted(); 
+        ArmPage.createTypeDoc("Карточка согласования"); 
+        CreationFormDoc.formLoaded(); 
+        CreationFormDoc.checkFormTitle("Карточка согласования"); 
+        CreationFormDoc.setCategoryDoc("Открытый"); 
+        CreationFormDoc.setTitle("Тестовый документ Карточка согласования. Удалить"); 
+        CreationFormDoc.setKindDoc("Прочие", "Акт"); 
+        CreationFormDoc.checkAttributes(new String[]{"Заголовок", "Акт", "Открытый"}); 
+        Buttons.push("Сохранить проект"); 
+        FormDoc.checkAttributes(new String[]{"Акт", "Открытый", "Проект"}); 
+        String docNum = FormDoc.getDocNumber().getText(); 
+        BlackBar.pushKSED(); 
+        ArmPage.selectNode("Созданные мной документы"); 
+        ArmPage.sheckDocExist(docNum); 
+        ArmPage.pushDocFromTable(docNum); 
+        FormDoc.pushSetChange(); 
+        ChangeFormDoc.verifyFormDocChange(docNum); 
+        CreationFormDoc.setCategoryDoc("ДВП"); 
+        ChangeFormDoc.checkAttributes(new String[]{"ДВП"}); 
+        Buttons.push("Сохранить"); 
+        FormDoc.checkAttributes(new String[]{"Акт", "ДВП"}); 
+        RightPanel.pushButton("Удалить"); 
+        FormDoc.checkMassageRemove(); 
+        BlackBar.pushKSED(); 
+        ArmPage.selectNode("Проекты"); 
+        ArmPage.checkDocRemoved(docNum); 
 
-        sleep(2000); //1
+        sleep(2000); 
     }
 }
