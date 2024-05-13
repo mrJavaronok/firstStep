@@ -22,7 +22,8 @@ public class AuthPage {
     // Сменить пользователя
     public static void outAuth() {
         refresh();
-        $x("//span[contains(@id,'USER_MENU')]").click();
+        $x("//span[contains(@id,'HEADER_USER_MENU_POPUP_text')]").shouldBe(visible);
+        $x("//span[contains(@id,'HEADER_USER_MENU_POPUP_text')]").click();
         $x("//td[text()='Выход']").click();
     }
     // Проверить, что авторизация прошла

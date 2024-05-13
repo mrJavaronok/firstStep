@@ -1,9 +1,12 @@
 package pages.docPage;
 
+import com.codeborne.selenide.SelenideElement;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class ChangeFormDoc {
+
     // Проверить атрибуты по указанным значениям
     public static void checkAttributes(String[] myArray) {
         for (var value : myArray) {

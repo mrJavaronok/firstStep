@@ -1,4 +1,4 @@
-package pages.blackBar;
+package pages.panels;
 
 import static com.codeborne.selenide.Selenide.$x;
 

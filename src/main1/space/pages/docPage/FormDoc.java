@@ -8,10 +8,10 @@ import static com.codeborne.selenide.Selenide.$x;
 public class FormDoc {
     // Получить учетный номер документа
     public static SelenideElement getDocNumber() {
-        return  $x("//span[contains(@id, 'prop_lecm-document_regnum')]");
+        return  $x("//span[@id='document-title']");
     }
     // Нажать на кнопку Редактировать сведения
-    public static void pushChangeAttributes() {
+    public static void changeAttributeButton() {
         $x("//a[@title='Редактировать сведения']").click();
     }
     // Проверка сообщения, что документ был удален после удаления

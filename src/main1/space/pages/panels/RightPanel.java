@@ -1,4 +1,4 @@
-package pages.docPage;
+package pages.panels;
 
 import tools.Buttons;
 
