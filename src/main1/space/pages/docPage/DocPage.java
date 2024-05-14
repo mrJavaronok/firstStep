@@ -35,6 +35,7 @@ public class DocPage extends DocCreatePage{
         return this;
     }
     // Проверить атрибуты по указанным значениям
+    @Override
     public DocPage checkAttributes(String[] myArray) {
         for (var value : myArray) {
             $x("//div[@class='main-content']//*[text()='" + value + "']").shouldBe(visible);

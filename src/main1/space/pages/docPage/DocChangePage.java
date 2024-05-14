@@ -7,6 +7,7 @@ import static com.codeborne.selenide.Selenide.page;
 public class DocChangePage extends DocCreatePage {
 
     // Проверить атрибуты по указанным значениям
+    @Override
     public DocChangePage checkAttributes(String[] myArray) {
         for (var value : myArray) {
             $x("//span[@class='mandatory-indicator']//ancestor::div//child::*[text()='"+value+"' or @title='"+value+"'][not(self::li)]").shouldBe(visible);
