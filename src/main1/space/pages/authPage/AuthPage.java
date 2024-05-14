@@ -1,8 +1,8 @@
 package pages.authPage;
 
 import data.Employees;
-import data.Users;
 import org.openqa.selenium.By;
+import pages.armPage.ArmPage;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
@@ -10,25 +10,24 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class AuthPage {
     // Ссылка на окно авторизации КСЭД
-    public static String homeWeb () {
+    public String homeWeb () {
         return "http://172.30.48.40:8080/share/page/arm?code=SED";
     }
     // Авторизация под пользователем
-    public static void goAuth(Employees user) {
+    public ArmPage goAuth(Employees user) {
         $(By.name("username")).setValue(user.getLogin());
         $(By.name("password")).setValue(user.getPassword());
         $x("//button[text()='Войти']").click();
+        return page(ArmPage.class);
     }
     // Сменить пользователя
-    public static void outAuth() {
+    public AuthPage outAuth() {
         refresh();
         $x("//span[contains(@id,'HEADER_USER_MENU_POPUP_text')]").shouldBe(visible);
         $x("//span[contains(@id,'HEADER_USER_MENU_POPUP_text')]").click();
         $x("//td[text()='Выход']").click();
+        return page(AuthPage.class);
     }
     // Проверить, что авторизация прошла
-    public static void checkAuthCompleted () {
-        $x("//div[@id='HEADER_USER_MENU_BAR']").shouldBe(visible);
-    }
 
 }

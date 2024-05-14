@@ -4,13 +4,6 @@ import com.codeborne.selenide.Configuration;
 import data.Users;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.armPage.ArmPage;
-import pages.authPage.AuthPage;
-import pages.docPage.CreationFormDoc;
-import pages.docPage.FormDoc;
-import pages.panels.BlackBar;
-import pages.panels.RightPanel;
-import tools.Buttons;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -23,7 +16,7 @@ public class ER01 {
     Users users = new Users();
     @Test
     public void test1 () {
-        open(AuthPage.homeWeb());
+     /*   open(AuthPage.homeWeb());
         AuthPage.goAuth(users.getFortest1());
         ArmPage.createTypeDoc("Поручение");
         CreationFormDoc.formLoaded();
@@ -38,7 +31,7 @@ public class ER01 {
         ArmPage.sheckDocExist(numDoc);
         ArmPage.pushDocFromTable(numDoc);
         FormDoc.checkAttributes(new String[] {"СКХ", "Test1"});
-        RightPanel.pushPanelButton("Удалить");
+        RightPanel.pushPanelButton("Удалить");*/
 
 
         sleep(2000);

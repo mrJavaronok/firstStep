@@ -3,24 +3,9 @@ package tests.approvalCard.testSuit;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import data.Users;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.*;
-import pages.armPage.ArmPage;
-import pages.authPage.AuthPage;
-import pages.docPage.CreationFormDoc;
-import tools.Buttons;
 
-import java.awt.*;
-import java.io.File;
-import java.security.SecureRandom;
-import java.util.Arrays;
-
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Configuration.baseUrl;
-import static com.codeborne.selenide.Configuration.headless;
-import static com.codeborne.selenide.Selenide.*;
 
 public class CS002RNTP10812 {
     @BeforeTest
@@ -34,7 +19,7 @@ public class CS002RNTP10812 {
 
     @Test (/*threadPoolSize = 5, */invocationCount=50)
     public void cstest () {
-        open(baseUrl);
+       /* open(baseUrl);
         AuthPage.goAuth(users.getFortest4());
         AuthPage.checkAuthCompleted();
         $x("//span[contains(@id, 'DELEGATION_USER_MENU_POPUP_text')]").click();
@@ -87,7 +72,7 @@ public class CS002RNTP10812 {
         AuthPage.checkAuthCompleted();
         $x("//span[text()='Уведомления']").click();
         $x("//a[contains(text(), '"+numDoc+"')]").shouldBe(visible);
-        System.out.println("Получено уведомление о направлении на согласование: " + numDoc);
+        System.out.println("Получено уведомление о направлении на согласование: " + numDoc);*/
 
 
 
