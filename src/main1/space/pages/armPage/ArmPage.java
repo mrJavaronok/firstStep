@@ -1,16 +1,32 @@
 package pages.armPage;
 
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
 import pages.docPage.DocCreatePage;
 import pages.docPage.DocPage;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.*;
 
 public class ArmPage {
+
+    private SelenideElement createTypeDocBtn = $x("//button[text()='Создать']");
+
+    public ArmPage clickCreateTypeDocBtn() {
+        createTypeDocBtn.click();
+        return this;
+    }
+
+    public DocCreatePage createTypeDoc(String typeName) {
+        clickCreateTypeDocBtn();
+        String listType = String.format("//a[text()='%s']", typeName);
+        $x(listType).click();
+        return page(DocCreatePage.class);
+    }
+
     // Отжать кнопку создать по типу документа
-    public DocCreatePage createTypeDoc(String type) {
+    /*public DocCreatePage createTypeDoc(String type) {
         $x("//button[text()='Создать']").click();
         $x("//a[text()='"+type+"']").click();
         return page(DocCreatePage.class);
@@ -41,7 +57,7 @@ public class ArmPage {
     public ArmPage checkAuthCompleted () {
         $x("//div[@id='HEADER_USER_MENU_BAR']").shouldBe(visible);
         return this;
-    }
+    }*/
 
 
 }

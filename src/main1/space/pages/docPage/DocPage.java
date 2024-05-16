@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.page;
 
-public class DocPage extends DocCreatePage{
+public class DocPage extends DocCreatePage {
     // На правой панели действий отжать кнопку по указанном наименованию
     public DocPage pushRigthMenuRemove() {
         $x("//div[text()='Удалить']").click();
@@ -35,7 +35,7 @@ public class DocPage extends DocCreatePage{
         return this;
     }
     // Проверить атрибуты по указанным значениям
-    @Override
+    //@Override
     public DocPage checkAttributes(String[] myArray) {
         for (var value : myArray) {
             $x("//div[@class='main-content']//*[text()='" + value + "']").shouldBe(visible);

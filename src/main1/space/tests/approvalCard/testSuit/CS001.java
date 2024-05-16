@@ -6,6 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.armPage.ArmPage;
+import pages.panels.BlackBar;
 import pages.authPage.AuthPage;
 import pages.docPage.DocChangePage;
 import pages.docPage.DocCreatePage;
@@ -21,6 +22,7 @@ public class CS001 {
     private DocCreatePage docCreatePage;
     private DocPage docPage;
     private DocChangePage docChangePage;
+    private BlackBar blackBar;
 
     @BeforeMethod
     public void configuration() {
@@ -29,19 +31,58 @@ public class CS001 {
         //Configuration.headless = true;
 
         users = new Users();
+        authPage = new AuthPage();
         armPage = new ArmPage();
         docCreatePage = new DocCreatePage();
         docPage = new DocPage();
         docChangePage = new DocChangePage();
-        authPage = new AuthPage();
+        blackBar = new BlackBar();
+
 
     }
 
-    @Test (invocationCount = 2)
+    @Test (/*invocationCount = 2*/)
     public void testRun() {
         open(baseUrl);
         authPage.goAuth(users.getFortest1());
-        armPage.checkAuthCompleted();
+        blackBar.userMenuAvailable();
+        armPage.createTypeDoc("Карточка согласования");
+        docCreatePage.assertTitleHead("Карточка согласования");
+        /*docCreatePage.checkFormTitle("Карточка согласования");
+        docCreatePage.setCategoryDoc("Открытый");
+        docCreatePage.setTitle("Тестовый документ Карточка согласования. Удалить");
+        docCreatePage.setKindDoc("Прочие", "Акт");
+        docCreatePage.checkAttributes(new String[]{"Заголовок", "Акт", "Открытый"});
+        docCreatePage.pushButton("Сохранить проект");
+        docPage.checkAttributes(new String[]{"Акт", "Открытый", "Проект"});
+        String docNum = docPage.getDocNumber().getText();
+        docPage.pushBlackBarKSED();
+        armPage.selectNode("Созданные мной документы");
+        armPage.sheckDocExist(docNum);
+        armPage.pushDocFromTable(docNum);
+        docPage.changeAttributeButton();
+        docChangePage.verifyFormDocChange(docNum);
+        docChangePage.setCategoryDoc("ДВП");
+        docChangePage.checkAttributes(new String[]{"ДВП"});
+        docChangePage.pushButton("Сохранить");
+        docPage.checkAttributes(new String[]{"Акт", "ДВП"});
+        docPage.pushRigthMenuRemove();
+        docPage.checkMassageRemove();
+        docPage.pushBlackBarKSED();
+        armPage.selectNode("Проекты");
+        armPage.checkDocRemoved(docNum);*/
+    }
+    @AfterMethod
+    public void closeBrowser(){
+        Selenide.closeWindow();
+        Selenide.closeWebDriver();
+    }
+    
+}
+/*
+open(baseUrl);
+        authPage.goAuth(users.getFortest1());
+        blackBar.userMenuAvailable();
         armPage.createTypeDoc("Карточка согласования");
         docCreatePage.formLoaded();
         docCreatePage.checkFormTitle("Карточка согласования");
@@ -67,10 +108,4 @@ public class CS001 {
         docPage.pushBlackBarKSED();
         armPage.selectNode("Проекты");
         armPage.checkDocRemoved(docNum);
-    }
-    @AfterMethod
-    public void closeBrowser(){
-        Selenide.closeWindow();
-        Selenide.closeWebDriver();
-    }
-}
+ */

@@ -1,5 +1,7 @@
 package pages.docPage;
 
+import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
@@ -8,7 +10,18 @@ import static com.codeborne.selenide.Selenide.*;
 
 
 public class DocCreatePage {
-    public DocPage pushButton (String name) {
+
+    private SelenideElement titleHead = $x("//span[@class='alfresco-header-Title__text']");
+
+    public String getTitleHeadText() {
+        return titleHead.getText();
+    }
+
+    public DocCreatePage assertTitleHead(String typeName) {
+        Assertions.assertEquals(getTitleHeadText(), String.format("Создать документ \"%s\"", typeName));
+        return this;
+    }
+    /*public DocPage pushButton (String name) {
         $x("//button[text()='"+ name +"']").click();
         return page(DocPage.class);
     }
@@ -46,7 +59,7 @@ public class DocCreatePage {
         return this;
     }
     // Выбрать отвественного исполнителя
-    public DocCreatePage setExecutor (String user) {
+    public DocCreatePage setExecutor(String user) {
         $x("//button[contains(@id, 'executor-assoc-btn-pick-')]").click();
         $x("//input[contains(@id, 'executor-assoc-picker-employee-search-text')]").val(user).press(Keys.ENTER);
         $x("//a[contains(., '"+ user +"')]//ancestor::tr//child::i[@class='icon-plus']").click();
@@ -59,6 +72,6 @@ public class DocCreatePage {
             $x("//span[@class='mandatory-indicator']//ancestor::div//child::*[@title='"+value+"'][not(self::li)]").shouldBe(visible);
         }
         return this;
-    }
+    }*/
 
 }
