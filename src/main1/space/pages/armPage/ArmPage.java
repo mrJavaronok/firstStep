@@ -11,17 +11,21 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class ArmPage {
 
-    private SelenideElement createTypeDocBtn = $x("//button[text()='Создать']");
+    public SelenideElement userMenuName() {
+        return $x("//span[@id='HEADER_USER_MENU_POPUP_text']");
+    }
 
-    public ArmPage clickCreateTypeDocBtn() {
-        createTypeDocBtn.click();
-        return this;
+    public SelenideElement createTypeDocBtn() {
+        return $x("//button[text()='Создать']");
+    }
+
+    public SelenideElement clickTypeDocBtn(String typeName) {
+        return $x(String.format("//a[text()='%s']", typeName));
     }
 
     public DocCreatePage createTypeDoc(String typeName) {
-        clickCreateTypeDocBtn();
-        String listType = String.format("//a[text()='%s']", typeName);
-        $x(listType).click();
+        createTypeDocBtn().click();
+        clickTypeDocBtn(typeName).click();
         return page(DocCreatePage.class);
     }
 

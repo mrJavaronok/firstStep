@@ -4,9 +4,9 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.page;
 
-public class DocChangePage extends DocCreatePage {
+public class DocChangePage {
 
-    // Проверить атрибуты по указанным значениям
+    /*// Проверить атрибуты по указанным значениям
     //@Override
     public DocChangePage checkAttributes(String[] myArray) {
         for (var value : myArray) {
@@ -18,6 +18,6 @@ public class DocChangePage extends DocCreatePage {
     public DocChangePage verifyFormDocChange(String docNum) {
         $x("//span[contains(@id, 'prop_lecm-document_regnum') and text()='"+docNum+"']").shouldBe(visible);
         return this;
-    }
+    }*/
 
 }

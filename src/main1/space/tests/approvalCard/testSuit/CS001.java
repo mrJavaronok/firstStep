@@ -1,7 +1,9 @@
 package tests.approvalCard.testSuit;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.conditions.InnerText;
 import data.Users;
+import org.junit.jupiter.api.Assertions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,17 +14,13 @@ import pages.docPage.DocChangePage;
 import pages.docPage.DocCreatePage;
 import pages.docPage.DocPage;
 
+import static com.codeborne.selenide.Condition.innerText;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CS001 {
     private Users users;
-    private AuthPage authPage;
-    private ArmPage armPage;
-    private DocCreatePage docCreatePage;
-    private DocPage docPage;
-    private DocChangePage docChangePage;
-    private BlackBar blackBar;
 
     @BeforeMethod
     public void configuration() {
@@ -31,25 +29,25 @@ public class CS001 {
         //Configuration.headless = true;
 
         users = new Users();
-        authPage = new AuthPage();
-        armPage = new ArmPage();
-        docCreatePage = new DocCreatePage();
-        docPage = new DocPage();
-        docChangePage = new DocChangePage();
-        blackBar = new BlackBar();
-
-
     }
 
-    @Test (/*invocationCount = 2*/)
+    @Test //(/*invocationCount = 1, threadPoolSize = 1*/)
     public void testRun() {
-        open(baseUrl);
-        authPage.goAuth(users.getFortest1());
-        blackBar.userMenuAvailable();
-        armPage.createTypeDoc("Карточка согласования");
-        docCreatePage.assertTitleHead("Карточка согласования");
-        /*docCreatePage.checkFormTitle("Карточка согласования");
+        AuthPage authPage = open(baseUrl, AuthPage.class);
+        ArmPage armPage = authPage.goAuth(users.getFortest1());
+        armPage.userMenuName().shouldHave(innerText("Фортест1"));
+
+        DocCreatePage docCreatePage = armPage.createTypeDoc("Карточка согласования");
+        docCreatePage.formLoaded();
+        docCreatePage.titleHeadName().shouldHave(innerText("Карточка согласования"));
+
+        docCreatePage.setKindDoc("Прочие", "Акт");
+        docCreatePage.fillTitleDoc("Это тестовый документ");
         docCreatePage.setCategoryDoc("Открытый");
+        
+        DocPage docPage = docCreatePage.clickFinalCreateBtn("Сохранить проект");
+
+        /*
         docCreatePage.setTitle("Тестовый документ Карточка согласования. Удалить");
         docCreatePage.setKindDoc("Прочие", "Акт");
         docCreatePage.checkAttributes(new String[]{"Заголовок", "Акт", "Открытый"});

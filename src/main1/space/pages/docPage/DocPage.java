@@ -8,8 +8,9 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.page;
 
-public class DocPage extends DocCreatePage {
-    // На правой панели действий отжать кнопку по указанном наименованию
+public class DocPage {
+
+   /*/ На правой панели действий отжать кнопку по указанном наименованию
     public DocPage pushRigthMenuRemove() {
         $x("//div[text()='Удалить']").click();
         Buttons.push("OK");
@@ -41,6 +42,6 @@ public class DocPage extends DocCreatePage {
             $x("//div[@class='main-content']//*[text()='" + value + "']").shouldBe(visible);
         }
         return this;
-    }
+    }*/
 
 }

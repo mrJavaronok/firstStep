@@ -1,63 +1,115 @@
 package pages.docPage;
 
 import com.codeborne.selenide.SelenideElement;
-import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
+import static org.openqa.selenium.Keys.ENTER;
 
 
 public class DocCreatePage {
 
-    private SelenideElement titleHead = $x("//span[@class='alfresco-header-Title__text']");
-
-    public String getTitleHeadText() {
-        return titleHead.getText();
+    // Заголовок страницы создания документа
+    public SelenideElement titleHeadName() {
+        return $x("//span[@class='alfresco-header-Title__text']");
+    }
+    //
+    // Поле вложения для информации
+    public SelenideElement fieldAttachForInfo() {
+        return $x("//legend[text()='Документы для информации']//ancestor::div[@class='uploader-block']");
     }
 
-    public DocCreatePage assertTitleHead(String typeName) {
-        Assertions.assertEquals(getTitleHeadText(), String.format("Создать документ \"%s\"", typeName));
-        return this;
+    // Вид документа
+    //
+    public SelenideElement kindDocBtn() {
+        return $x("//button[contains(@id, 'document-kind-assoc-cntrl-tree-picker-button-button')]");
     }
-    /*public DocPage pushButton (String name) {
-        $x("//button[text()='"+ name +"']").click();
+
+    public SelenideElement catalogKindBtn(String catalog) {
+        return $x(String.format("//span[text()='%s']", catalog));
+    }
+
+    public SelenideElement loadKindElem() {
+        return $x("//div[text()='Загрузка...']//ancestor::tbody[@style= '']");
+    }
+
+    public SelenideElement fieldKindSearch() {
+        return $x("//input[contains(@id, 'document-kind-assoc-cntrl-picker-searchText')]");
+    }
+
+    public SelenideElement setKindAddBtn(String kindName) {
+        return $x(String.format("//span[text()='%s']//ancestor::tr//child::span[@class='addIcon']", kindName));
+    }
+
+    public SelenideElement completeSetKindBtn() {
+        return $x("//button[contains(@id, 'document-kind-assoc-cntrl-ok-button')]");
+    }
+
+    // Вид документа
+    //
+    public SelenideElement categoryDocBtn() {
+        return $x("//button[contains(@id,'document-category-assoc-cntrl-tree')]");
+    }
+
+    public SelenideElement clearSetCategoryElemBtn() {
+        return $x("//div[contains(@id, 'document-category-assoc-cntrl-picker-selection')]//child::span[text()='Очистить']");
+    }
+
+    public SelenideElement setCategoryAddBtn(String categoryName) {
+        return $x(String.format("//span[text()='%s']//ancestor::tr//child::span[@class='addIcon']", categoryName));
+    }
+
+    public SelenideElement completeSetCategoryBtn() {
+        return $x("//button[contains(@id, '-category-assoc-cntrl-ok')]");
+    }
+
+    // Заполнить заголовок документа
+    public SelenideElement fieldTitleDoc() {
+        return $x("//input[@name='prop_lecm-document_title']");
+    }
+
+    public SelenideElement completeCreateDocBtn(String nameBtn) {
+        return $x(String.format("//button[text()='%s']", nameBtn));
+    }
+
+    public DocPage clickFinalCreateBtn(String nameBtn) {
+        completeCreateDocBtn(nameBtn).click();
         return page(DocPage.class);
     }
-    // Форма создания прогужена
-    public DocCreatePage formLoaded() {
-        $x("//legend[text()='Документы для информации']//ancestor::div[@class='uploader-block']").shouldBe(visible);
-        return this;
+
+    public void fillTitleDoc(String titleName) {
+        fieldTitleDoc().setValue(titleName);
     }
-    // Проверить заголовок страницы по наименованию
-    public DocCreatePage checkFormTitle(String name) {
-        $x("//h1[@id='HEADER_TITLE']//child::span[contains(text(), '"+name+"')]").shouldBe(visible);
-        return this;
+
+    public void setCategoryDoc(String categoryName) {
+        categoryDocBtn().click();
+        clearSetCategoryElemBtn().click();
+        setCategoryAddBtn(categoryName).click();
+        completeSetCategoryBtn().click();
     }
-    // Выбрать категорию документа
-    public DocCreatePage setCategoryDoc (String type) {
-        $x("//button[contains(@id,'document-category-assoc-cntrl-tree')]").click();
-        $x("//div[contains(@id, 'document-category-assoc-cntrl-picker-selection')]//child::span[text()='Очистить']").click();
-        $x("//span[text()='"+ type +"']//ancestor::tr//child::span[@class='addIcon']").click();
-        $x("//button[contains(@id, '-category-assoc-cntrl-ok')]").click();
-        return this;
+
+    public void setKindDoc(String catalog, String kindName) {
+        kindDocBtn().click();
+        catalogKindBtn(catalog).click();
+        loadKindElem().shouldNotBe(visible);
+        fieldKindSearch().setValue(kindName).press(ENTER);
+        setKindAddBtn(kindName).click();
+        completeSetKindBtn().click();
     }
-    // Заполнить заголовок документа
-    public DocCreatePage setTitle(String name) {
-        $(By.name("prop_lecm-document_title")).setValue(name);
-        return this;
+    // Форма создания документа загружена
+    public void formLoaded() {
+        fieldAttachForInfo().shouldBe(visible);
     }
-    // Выбрать вид документа (КС)
-    public DocCreatePage setKindDoc(String catalog, String kindName) {
-        $x("//button[contains(@id, 'document-kind-assoc-cntrl-tree-picker-button-')]").click();
-        $x("//span[text()='"+ catalog +"']").click();
-        $x("//div[text()='Загрузка...']//ancestor::tbody[@style= '']").shouldNotBe(visible); // дождаться отсутствия сообщения "Загрузка..."
-        $x("//input[contains(@id, 'document-kind-assoc-cntrl-picker-searchText')]").val(kindName).press(Keys.ENTER);
-        $x("//span[text()='"+ kindName +"']//ancestor::tr//child::span[@class='addIcon']").click();
-        $x("//button[contains(@id, 'document-kind-assoc-cntrl-ok-button')]").click();
-        return this;
+
+
+    /*
+    public DocPage pushButton (String name) {
+
+        return page(DocPage.class);
     }
+
+
+
     // Выбрать отвественного исполнителя
     public DocCreatePage setExecutor(String user) {
         $x("//button[contains(@id, 'executor-assoc-btn-pick-')]").click();

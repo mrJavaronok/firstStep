@@ -14,24 +14,20 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class AuthPage {
 
-    private SelenideElement userNameField = $x("//input[@name='username']");
-    private SelenideElement userPasswordField = $x("//input[@name='password']");
-    private SelenideElement submitBtn = $x("//button[text()='Войти']");
-
-    public AuthPage fillUserField(String userName) {
-        userNameField.sendKeys(userName);
+    public AuthPage fillLoginField(String login) {
+        $x("//input[@name='username']").setValue(login);
         return this;
     }
     public AuthPage fillPasswordField(String password) {
-        userPasswordField.sendKeys(password);
+        $x("//input[@name='password']").setValue(password);
         return this;
     }
     public ArmPage clickSubmit() {
-        submitBtn.click();
+        $x("//button[text()='Войти']").click();
         return page(ArmPage.class);
     }
     public ArmPage goAuth(Employees user) {
-        fillUserField(user.getLogin());
+        fillLoginField(user.getLogin());
         fillPasswordField(user.getPassword());
         clickSubmit();
         return page(ArmPage.class);
