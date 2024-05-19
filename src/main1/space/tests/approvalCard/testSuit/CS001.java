@@ -26,84 +26,57 @@ public class CS001 {
     public void configuration() {
         baseUrl = "http://172.30.48.40:8080/share/page/";
         Configuration.timeout = 20000; // неявное ожидание в 5 секунд
-        //Configuration.headless = true;
+        Configuration.headless = false;
 
         users = new Users();
     }
 
     @Test //(/*invocationCount = 1, threadPoolSize = 1*/)
     public void testRun() {
+        // step 1
         AuthPage authPage = open(baseUrl, AuthPage.class);
         ArmPage armPage = authPage.goAuth(users.getFortest1());
         armPage.userMenuName().shouldHave(innerText("Фортест1"));
-
+        // step 2
         DocCreatePage docCreatePage = armPage.createTypeDoc("Карточка согласования");
         docCreatePage.formLoaded();
         docCreatePage.titleHeadName().shouldHave(innerText("Карточка согласования"));
-
+        // step 3
         docCreatePage.setKindDoc("Прочие", "Акт");
         docCreatePage.fillTitleDoc("Это тестовый документ");
         docCreatePage.setCategoryDoc("Открытый");
-        
+        docCreatePage.checkAttributes(new String[]{"Акт", "Заголовок", "Открытый"});
+        // step 4
         DocPage docPage = docCreatePage.clickFinalCreateBtn("Сохранить проект");
-
-        /*
-        docCreatePage.setTitle("Тестовый документ Карточка согласования. Удалить");
-        docCreatePage.setKindDoc("Прочие", "Акт");
-        docCreatePage.checkAttributes(new String[]{"Заголовок", "Акт", "Открытый"});
-        docCreatePage.pushButton("Сохранить проект");
         docPage.checkAttributes(new String[]{"Акт", "Открытый", "Проект"});
-        String docNum = docPage.getDocNumber().getText();
-        docPage.pushBlackBarKSED();
-        armPage.selectNode("Созданные мной документы");
-        armPage.sheckDocExist(docNum);
-        armPage.pushDocFromTable(docNum);
-        docPage.changeAttributeButton();
-        docChangePage.verifyFormDocChange(docNum);
+        String docNum = docPage.getDocNumberText();
+        // step 5
+        docPage.clickKsedBtn();
+        armPage.selectParentNode("Созданные мной документы");
+        armPage.selectNode("Проекты");
+        armPage.checkDocInTableAndStatus(docNum, "Проект");
+        armPage.clickDocInTable(docNum);
+        // step 6
+        DocChangePage docChangePage = docPage.clickChangeAttributesBtn();
+        docChangePage.checkAttributes(new String[]{docNum});
+        // step 7
         docChangePage.setCategoryDoc("ДВП");
         docChangePage.checkAttributes(new String[]{"ДВП"});
-        docChangePage.pushButton("Сохранить");
+        // step 8
+        docChangePage.clickFinalCreateBtn("Сохранить");
         docPage.checkAttributes(new String[]{"Акт", "ДВП"});
-        docPage.pushRigthMenuRemove();
-        docPage.checkMassageRemove();
-        docPage.pushBlackBarKSED();
+        // step 9
+        docPage.removeDoc();
+        docPage.messageAfterRemove();
+        // step 10
+        docPage.clickKsedBtn();
         armPage.selectNode("Проекты");
-        armPage.checkDocRemoved(docNum);*/
+        armPage.checkNotExistDoc(docNum);
     }
     @AfterMethod
     public void closeBrowser(){
-        Selenide.closeWindow();
         Selenide.closeWebDriver();
     }
     
 }
-/*
-open(baseUrl);
-        authPage.goAuth(users.getFortest1());
-        blackBar.userMenuAvailable();
-        armPage.createTypeDoc("Карточка согласования");
-        docCreatePage.formLoaded();
-        docCreatePage.checkFormTitle("Карточка согласования");
-        docCreatePage.setCategoryDoc("Открытый");
-        docCreatePage.setTitle("Тестовый документ Карточка согласования. Удалить");
-        docCreatePage.setKindDoc("Прочие", "Акт");
-        docCreatePage.checkAttributes(new String[]{"Заголовок", "Акт", "Открытый"});
-        docCreatePage.pushButton("Сохранить проект");
-        docPage.checkAttributes(new String[]{"Акт", "Открытый", "Проект"});
-        String docNum = docPage.getDocNumber().getText();
-        docPage.pushBlackBarKSED();
-        armPage.selectNode("Созданные мной документы");
-        armPage.sheckDocExist(docNum);
-        armPage.pushDocFromTable(docNum);
-        docPage.changeAttributeButton();
-        docChangePage.verifyFormDocChange(docNum);
-        docChangePage.setCategoryDoc("ДВП");
-        docChangePage.checkAttributes(new String[]{"ДВП"});
-        docChangePage.pushButton("Сохранить");
-        docPage.checkAttributes(new String[]{"Акт", "ДВП"});
-        docPage.pushRigthMenuRemove();
-        docPage.checkMassageRemove();
-        docPage.pushBlackBarKSED();
-        armPage.selectNode("Проекты");
-        armPage.checkDocRemoved(docNum);
- */
+

@@ -1,15 +1,16 @@
 package pages.armPage;
 
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.Keys;
+
 import pages.docPage.DocCreatePage;
 import pages.docPage.DocPage;
+import pages.panels.BlackBar;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
+import static org.openqa.selenium.Keys.ENTER;
 
-public class ArmPage {
+public class ArmPage extends BlackBar {
 
     public SelenideElement userMenuName() {
         return $x("//span[@id='HEADER_USER_MENU_POPUP_text']");
@@ -23,45 +24,68 @@ public class ArmPage {
         return $x(String.format("//a[text()='%s']", typeName));
     }
 
+    public SelenideElement nodeArm(String nameNode) {
+        return $x(String.format("//span[text()='%s']", nameNode));
+    }
+
+    public SelenideElement parentNodeArm(String nameNode) {
+        return $x(String.format("//span[text()='%s']//ancestor::tr//child::a", nameNode));
+    }
+
+    public SelenideElement fieldSearchDoc() {
+        return $x("//div[@class='right ']//child::input[@type='text']");
+    }
+
+    public SelenideElement messageLoadSearchDoc() {
+        return $x("//span[text()='Загрузка...']");
+    }
+
+    public SelenideElement docInTableAndStatus(String docNum, String status) {
+        return $x(String.format("//div[text()='%s']//ancestor::tr//child::a[text()='%s']", status, docNum));
+    }
+
+    public SelenideElement docInTable(String docNum) {
+        return $x(String.format("//div[text()='%s']", docNum));
+    }
+
+    public SelenideElement docInTableBtn(String docNum) {
+        return $x(String.format("//td//child::a[text()='%s']", docNum));
+    }
+
+    // Нажать на док в таблице по номеру дока
+    public DocPage clickDocInTable(String docNum) {
+        docInTableBtn(docNum).click();
+        return page(DocPage.class);
+    }
+
+
+    // Проверить что док присутствует в таблице узла по номеру дока
+    public void checkDocInTableAndStatus(String docNum, String status) {
+        do {
+            fieldSearchDoc().setValue(docNum).press(ENTER);
+            messageLoadSearchDoc().shouldNotBe(visible);
+        } while (!docInTableAndStatus(docNum, status).exists());
+    }
+
+    public void checkNotExistDoc(String docNum) {
+        do {
+            fieldSearchDoc().setValue(docNum).press(ENTER);
+            messageLoadSearchDoc().shouldNotBe(visible);
+        } while (docInTable(docNum).exists());
+    }
+
+    public void selectParentNode(String nameNode) {
+        parentNodeArm(nameNode).click();
+    }
+    // Выбрать узел по наименованию
+    public void selectNode (String nameNode) {
+        nodeArm(nameNode).click();
+    }
+
     public DocCreatePage createTypeDoc(String typeName) {
         createTypeDocBtn().click();
         clickTypeDocBtn(typeName).click();
         return page(DocCreatePage.class);
     }
-
-    // Отжать кнопку создать по типу документа
-    /*public DocCreatePage createTypeDoc(String type) {
-        $x("//button[text()='Создать']").click();
-        $x("//a[text()='"+type+"']").click();
-        return page(DocCreatePage.class);
-    }
-    // Выбрать узел по наименованию
-    public ArmPage selectNode (String name) {
-        $x("//span[text()='"+name+"']").click();
-        return this;
-    }
-    // Проверить что док присутствует в таблице узла по номеру дока
-    public ArmPage sheckDocExist(String docNum) {
-        do {
-            $x("//div[@class='right ']//child::input[@type='text']").setValue(docNum).sendKeys(Keys.ENTER);
-            $x("//span[text()='Загрузка...']").shouldNotBe(visible);
-        } while (!$x("//div[text()='Проект']//ancestor::tr//child::a[text()='"+docNum+"']").exists());
-        return this;
-    }
-    // Нажать на док в таблице по номеру дока
-    public DocPage pushDocFromTable(String docNum) {
-        $x("//td//child::a[text()='"+docNum+"']").click();
-        return page(DocPage.class);
-    }
-    // Проверить нет удаленного дока в узеле по номеру дока
-    public ArmPage checkDocRemoved(String docNum) {
-        $x("//td//child::a[text()='"+docNum+"']").shouldNotBe(visible);
-        return this;
-    }
-    public ArmPage checkAuthCompleted () {
-        $x("//div[@id='HEADER_USER_MENU_BAR']").shouldBe(visible);
-        return this;
-    }*/
-
 
 }

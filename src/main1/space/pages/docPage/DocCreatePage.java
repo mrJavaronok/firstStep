@@ -1,13 +1,14 @@
 package pages.docPage;
 
 import com.codeborne.selenide.SelenideElement;
+import pages.panels.BlackBar;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static org.openqa.selenium.Keys.ENTER;
 
 
-public class DocCreatePage {
+public class DocCreatePage extends BlackBar {
 
     // Заголовок страницы создания документа
     public SelenideElement titleHeadName() {
@@ -72,6 +73,20 @@ public class DocCreatePage {
         return $x(String.format("//button[text()='%s']", nameBtn));
     }
 
+    // Заполненный атрибут. Для заголовка = Заголовок
+    public SelenideElement filledAttributes(String valueForCheck) {
+        return  $x(String.format("//span[@class='mandatory-indicator']//ancestor::div//child::*[@title='%s'][not(self::li)]", valueForCheck));
+    }
+
+
+    //***Methods**
+    // Проверить атрибуты по указанным значениям
+    public void checkAttributes(String[] myArray) {
+        for (var valueForCheck : myArray) {
+            filledAttributes(valueForCheck).shouldBe(visible);
+        }
+    }
+
     public DocPage clickFinalCreateBtn(String nameBtn) {
         completeCreateDocBtn(nameBtn).click();
         return page(DocPage.class);
@@ -103,27 +118,14 @@ public class DocCreatePage {
 
 
     /*
-    public DocPage pushButton (String name) {
-
-        return page(DocPage.class);
-    }
-
-
-
     // Выбрать отвественного исполнителя
     public DocCreatePage setExecutor(String user) {
         $x("//button[contains(@id, 'executor-assoc-btn-pick-')]").click();
         $x("//input[contains(@id, 'executor-assoc-picker-employee-search-text')]").val(user).press(Keys.ENTER);
         $x("//a[contains(., '"+ user +"')]//ancestor::tr//child::i[@class='icon-plus']").click();
-        $x("//button[contains(@id, 'executor-assoc-picker-ok-')]").click();
+        $x("//button[contains(@id, 'executor-assoc-picker-ok-button)]").click();
         return this;
     }
-    // Проверить атрибуты по указанным значениям
-    public DocCreatePage checkAttributes(String[] myArray) {
-        for (var value : myArray) {
-            $x("//span[@class='mandatory-indicator']//ancestor::div//child::*[@title='"+value+"'][not(self::li)]").shouldBe(visible);
-        }
-        return this;
-    }*/
+    */
 
 }
