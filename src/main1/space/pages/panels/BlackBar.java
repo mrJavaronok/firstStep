@@ -1,7 +1,6 @@
 package pages.panels;
 
 import com.codeborne.selenide.SelenideElement;
-import org.junit.jupiter.api.Assertions;
 import pages.armPage.ArmPage;
 
 import static com.codeborne.selenide.Condition.visible;

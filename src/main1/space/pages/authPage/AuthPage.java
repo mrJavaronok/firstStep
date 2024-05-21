@@ -26,6 +26,15 @@ public class AuthPage {
         $x("//button[text()='Войти']").click();
         return page(ArmPage.class);
     }
+
+    public SelenideElement userMenuName() {
+        return $x("//span[@id='HEADER_USER_MENU_POPUP_text']");
+    }
+    public SelenideElement loginOut() {
+        return $x("//td[text()='Выход']");
+    }
+
+
     public ArmPage goAuth(Employees user) {
         fillLoginField(user.getLogin());
         fillPasswordField(user.getPassword());
@@ -33,7 +42,12 @@ public class AuthPage {
         return page(ArmPage.class);
     }
 
-
+    public AuthPage outAuth(Employees user) {
+        refresh();
+        userMenuName().click();
+        loginOut().click();
+        return page(AuthPage.class);
+    }
 
 
 }
