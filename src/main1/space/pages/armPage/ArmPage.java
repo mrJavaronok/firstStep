@@ -1,10 +1,13 @@
 package pages.armPage;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
 import pages.docPage.DocCreatePage;
 import pages.docPage.DocPage;
 import pages.panels.BlackBar;
+
+import java.util.concurrent.Callable;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
@@ -86,6 +89,14 @@ public class ArmPage extends BlackBar {
         createTypeDocBtn().click();
         clickTypeDocBtn(typeName).click();
         return page(DocCreatePage.class);
+    }
+
+
+    public ElementsCollection listElem() {
+        return $$x("//span[@class='expand-table-icon']");
+    }
+    public Callable<Boolean> awaitSizeList() {
+        return () -> listElem().size() == 2; // The condition that must be fulfilled
     }
 
 }
