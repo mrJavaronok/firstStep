@@ -1,53 +1,26 @@
 package pages.authPage;
 
-import com.codeborne.selenide.SelenideElement;
 import data.Employees;
-import org.openqa.selenium.By;
+import data.Users;
 import pages.armPage.ArmPage;
 
-import javax.naming.Name;
-
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 
 
-public class AuthPage {
+public class AuthPage extends Users {
 
-    public AuthPage fillLoginField(String login) {
-        $x("//input[@name='username']").setValue(login);
-        return this;
-    }
-    public AuthPage fillPasswordField(String password) {
-        $x("//input[@name='password']").setValue(password);
-        return this;
-    }
-    public ArmPage clickSubmit() {
+    public ArmPage goAuth(Employees user) {
+        $x("//input[@name='username']").setValue(user.getLogin());
+        $x("//input[@name='password']").setValue(user.getPassword());
         $x("//button[text()='Войти']").click();
         return page(ArmPage.class);
     }
 
-    public SelenideElement userMenuName() {
-        return $x("//span[@id='HEADER_USER_MENU_POPUP_text']");
-    }
-    public SelenideElement loginOut() {
-        return $x("//td[text()='Выход']");
-    }
-
-
-    public ArmPage goAuth(Employees user) {
-        fillLoginField(user.getLogin());
-        fillPasswordField(user.getPassword());
-        clickSubmit();
-        return page(ArmPage.class);
-    }
-
-    public AuthPage outAuth(Employees user) {
+    public void outAuth() {
         refresh();
-        userMenuName().click();
-        loginOut().click();
-        return page(AuthPage.class);
+        $x("//span[@id='HEADER_USER_MENU_POPUP_text']").click();
+        $x("//td[text()='Выход']").click();
     }
-
 
 }

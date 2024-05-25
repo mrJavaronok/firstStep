@@ -12,29 +12,20 @@ import pages.authPage.AuthPage;
 import pages.docPage.DocChangePage;
 import pages.docPage.DocCreatePage;
 import pages.docPage.DocPage;
+import tools.Config;
 
 import static com.codeborne.selenide.Condition.innerText;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.*;
 
-public class CS001 {
-    private Users users;
-
-    @BeforeMethod
-    public void configuration() {
-        baseUrl = "http://172.30.48.40:8080/share/page/";
-        Configuration.timeout = 20000; // неявное ожидание в 5 секунд
-        Configuration.headless = false;
-
-        users = new Users();
-    }
+public class CS001 extends Config {
 
     @Test //(/*invocationCount = 1, threadPoolSize = 1*/)
     public void testRun() {
         // step 1
         AuthPage authPage = open(baseUrl, AuthPage.class);
-        ArmPage armPage = authPage.goAuth(users.getFortest1());
+        ArmPage armPage = authPage.goAuth(authPage.getFortest1());
         armPage.userMenuName().shouldHave(innerText("Фортест1"));
         // step 2
         DocCreatePage docCreatePage = armPage.createTypeDoc("Карточка согласования");
@@ -66,15 +57,11 @@ public class CS001 {
         docPage.checkAttributes(new String[]{"Акт", "ДВП"});
         // step 9
         docPage.removeDoc();
-        docPage.messageAfterRemove();
         // step 10
         docPage.clickKsedBtn();
         armPage.selectNode("Проекты");
         armPage.checkNotExistDoc(docNum);
-    }
-    @AfterMethod
-    public void closeBrowser(){
-        Selenide.closeWebDriver();
+
     }
     
 }

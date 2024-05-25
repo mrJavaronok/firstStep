@@ -13,6 +13,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.armPage.ArmPage;
 import pages.authPage.AuthPage;
+import tools.Config;
 
 import java.util.Arrays;
 import java.util.concurrent.Callable;
@@ -26,25 +27,13 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
 import static org.openqa.selenium.Keys.ENTER;
 
-public class CS002 {
-    private Users users;
-
-    @BeforeMethod
-    public void configuration() {
-        baseUrl = "http://172.30.48.40:8080/share/page/";
-        Configuration.timeout = 20000;
-        Configuration.headless = false;
-
-        users = new Users();
-    }
-
-
+public class CS002 extends Config {
 
     @Test //(/*invocationCount = 1, threadPoolSize = 1*/)
     public void testRun() {
         // step 1
         AuthPage authPage = open(baseUrl, AuthPage.class);
-        ArmPage armPage = authPage.goAuth(users.getFortest1());
+        ArmPage armPage = authPage.goAuth(authPage.getFortest1());
         armPage.userMenuName().shouldHave(innerText("Фортест1"));
         // step 2
 
@@ -57,17 +46,11 @@ public class CS002 {
             $$x("//img[@title='Добавить в избранное']").get(i).click();
             armPage.selectNode("Избранное");
             armPage.clickKsedBtn();
-            await().atMost(60, SECONDS).until(armPage.awaitSizeList());
+            await()
+                    .pollInSameThread()
+                    .atMost(60, SECONDS)
+                    .until(armPage.awaitSizeList());
         }
-
-
-
     }
 
-
-/*    @AfterMethod
-    public void closeBrowser(){
-        Selenide.closeWebDriver();
-
-    }*/
 }

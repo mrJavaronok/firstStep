@@ -3,11 +3,11 @@ package tests.approvalCard.testSuit;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import data.Employees;
-import data.Users;
 import org.testng.annotations.*;
 import pages.armPage.ArmPage;
 import pages.authPage.AuthPage;
 import pages.docPage.DocCreatePage;
+import tools.Config;
 
 import java.io.File;
 import java.security.SecureRandom;
@@ -20,23 +20,13 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 import static org.openqa.selenium.Keys.ENTER;
 
-public class CS002RNTP10812 {
-    @BeforeTest
-    public void configureTests() {
-        Configuration.headless = false;
-        Configuration.timeout = 20000; // неявное ожидание в 5 секунд
-        baseUrl = "http://172.30.48.40:8080/share/page/";
-        // ... Other browser configs
-    }
-    Users users = new Users();
-
-
+public class CS002RNTP10812 extends Config {
     @Test (/*threadPoolSize = 5, invocationCount=50*/)
-    public void cstest () {
+    public void testRun () {
        var random = new SecureRandom();
         AuthPage authPage = open(baseUrl, AuthPage.class);
-        var list1 = Arrays.asList(users.getFortest4(), users.getFortest5(), users.getFortest6(), users.getFortest7(), users.getFortest8());
-               /* for (Employees el : list1) {
+        var list1 = Arrays.asList(authPage.getFortest4(), authPage.getFortest5(), authPage.getFortest6(), authPage.getFortest7(), authPage.getFortest8());
+        for (Employees el : list1) {
             ArmPage armPage = authPage.goAuth(el);
             armPage.userMenuName().shouldHave(innerText(el.getName()));
 
@@ -46,10 +36,10 @@ public class CS002RNTP10812 {
             $x("//a[contains(text(), '" + randomElement + "')]").click(); //user
             $x("//span[contains(text(), '" + randomElement + "')]").shouldBe(visible);
             System.out.println("Секретарь "+ el.getName() +" в режиме работы за: " + randomElement);
-            authPage.outAuth(el);
-        }*/
+            authPage.outAuth();
+        }
 
-        ArmPage armPage = authPage.goAuth(users.getFortest1());
+        ArmPage armPage = authPage.goAuth(authPage.getFortest1());
         armPage.userMenuName();
         DocCreatePage docCreatePage = armPage.createTypeDoc("Карточка согласования");
         docCreatePage.formLoaded();
@@ -71,8 +61,8 @@ public class CS002RNTP10812 {
         $x("//button[contains(@id, 'rn-aspects_rn-stage-type-cntrl-ok-button')]").click();
         $x("//button[contains(@id, 'rn-aspects_approvers-btn-pick-button')]").click();
         //... добавление сотруднка уже реализовано
-        $x("//input[contains(@id, 'approval-rn-aspects_approvers-picker-employee-search-text')]").val(users.getFortest3().getName()).press(ENTER);
-        $x("//a[contains(., '"+ users.getFortest3().getName() +"')]//ancestor::tr//child::i[@class='icon-plus']").click();
+        $x("//input[contains(@id, 'approval-rn-aspects_approvers-picker-employee-search-text')]").val(authPage.getFortest3().getName()).press(ENTER);
+        $x("//a[contains(., '"+ authPage.getFortest3().getName() +"')]//ancestor::tr//child::i[@class='icon-plus']").click();
         $x("//button[contains(@id, 'approvers-picker-ok-button')]").click();
         $x("//button[contains(@id, 'form-submit-button')]").click();
 
@@ -82,18 +72,15 @@ public class CS002RNTP10812 {
         $x("//span[contains(@id, 'prop_lecm-document_regnum')]").shouldBe(visible);
         String numDoc = $x("//span[contains(@id, 'prop_lecm-document_regnum')]").getText();
 
-        authPage.outAuth(users.getFortest1());
+        authPage.outAuth();
         for (Employees el : list1) {
             authPage.goAuth(el);
             armPage.userMenuName().shouldHave(innerText(el.getName()));
             $x("//span[text()='Уведомления']").click();
             $x("//a[contains(text(), '" + numDoc + "')]").shouldBe(visible);
             System.out.println(el.getName() + " получил уведомление о направлении на согласование: " + numDoc);
-            authPage.outAuth(el);
+            authPage.outAuth();
         }
     }
-    @AfterMethod
-    public void closeBrowser(){
-        Selenide.closeWebDriver();
-    }
+
 }

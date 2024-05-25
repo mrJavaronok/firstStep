@@ -40,12 +40,10 @@ public class DocPage extends DocCreatePage {
 
 
     //***Methods**
-    public void sheckMessageAfterRemove() {
-        messageAfterRemove().shouldBe(visible);
-    }
     public void removeDoc() {
         rightMenuRemoveBtn().click();
         confirmBtn().click();
+        messageAfterRemove().shouldBe(visible);
     }
     public DocChangePage clickChangeAttributesBtn() {
         changeAttributesBtn().click();
