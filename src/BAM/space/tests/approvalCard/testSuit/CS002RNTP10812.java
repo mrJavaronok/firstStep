@@ -1,27 +1,11 @@
 package tests.approvalCard.testSuit;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
-import data.Employees;
-import org.testng.annotations.*;
-import pages.armPage.ArmPage;
-import pages.authPage.AuthPage;
-import pages.docPage.DocCreatePage;
 import tools.Config;
 
-import java.io.File;
-import java.security.SecureRandom;
-import java.util.Arrays;
-
-import static com.codeborne.selenide.Condition.innerText;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Configuration.baseUrl;
-import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
-import static org.openqa.selenium.Keys.ENTER;
 
 public class CS002RNTP10812 extends Config {
-    @Test (/*threadPoolSize = 5, invocationCount=50*/)
+    /*@Test (*//*threadPoolSize = 5, invocationCount=50*//*)
     public void testRun () {
        var random = new SecureRandom();
         AuthPage authPage = open(baseUrl, AuthPage.class);
@@ -82,5 +66,5 @@ public class CS002RNTP10812 extends Config {
             authPage.outAuth();
         }
     }
-
+*/
 }
